@@ -20,7 +20,16 @@ public class Produto {
     private String nome;
     private String marca;
     private String descricao;
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProdutoPreco> produtoPrecos = new ArrayList<>();
 
+    public void addProdutoPreco(ProdutoPreco produtoPreco) {
+        produtoPrecos.add(produtoPreco);
+        produtoPreco.setProduto(this);
+    }
+
+    public void removeProdutoPreco(ProdutoPreco produtoPreco) {
+        produtoPrecos.remove(produtoPreco);
+        produtoPreco.setProduto(null);
+    }
 }
