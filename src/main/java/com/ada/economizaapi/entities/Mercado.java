@@ -1,14 +1,16 @@
 package com.ada.economizaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -21,7 +23,22 @@ public class Mercado {
     @ManyToOne
     @JoinColumn(name = "localizacao_id")
     private Localizacao localizacao;
+    @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "mercado")
-    private List<ProdutoPreco> produtoPreco = new ArrayList<>();
+    private List<ProdutoPreco> produtoPrecos = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mercado mercado = (Mercado) o;
+        return id != null && id.equals(mercado.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 
 }

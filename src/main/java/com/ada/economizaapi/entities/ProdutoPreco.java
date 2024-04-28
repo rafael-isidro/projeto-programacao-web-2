@@ -1,13 +1,14 @@
 package com.ada.economizaapi.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,5 +25,18 @@ public class ProdutoPreco {
     private Mercado mercado;
     private Double preco;
     private LocalDate dataAtualizacao;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProdutoPreco that = (ProdutoPreco) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 
 }
