@@ -14,7 +14,6 @@ public class EconomizaApiApplication {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
         LocalizacaoService localizacaoService = new LocalizacaoService();
         Pessoa pessoa = new Pessoa();
         Mercado mercado1 = new Mercado();
@@ -36,8 +35,6 @@ public class EconomizaApiApplication {
         Double distancia2 = localizacaoService.retornarDistanciaKm(localizacaoPessoa, localizacaoMercado2);
         System.out.printf("Distância até mercado 1: %.2fKm%n", distancia1);
         System.out.printf("Distância até mercado 2: %.2fKm%n", distancia2);
-
-        scanner.close();
 
         SpringApplication.run(EconomizaApiApplication.class, args);
     }
