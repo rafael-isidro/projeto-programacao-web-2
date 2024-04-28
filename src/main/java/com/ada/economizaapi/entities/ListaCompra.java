@@ -22,7 +22,7 @@ public class ListaCompra {
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "lista_compra_produto",
             joinColumns = @JoinColumn(name = "lista_compra_id"),
