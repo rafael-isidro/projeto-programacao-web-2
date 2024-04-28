@@ -1,14 +1,16 @@
 package com.ada.economizaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -20,16 +22,22 @@ public class Produto {
     private String nome;
     private String marca;
     private String descricao;
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(mappedBy = "produto")
     private List<ProdutoPreco> produtoPrecos = new ArrayList<>();
 
-    public void addProdutoPreco(ProdutoPreco produtoPreco) {
-        produtoPrecos.add(produtoPreco);
-        produtoPreco.setProduto(this);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id);
     }
 
-    public void removeProdutoPreco(ProdutoPreco produtoPreco) {
-        produtoPrecos.remove(produtoPreco);
-        produtoPreco.setProduto(null);
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
+
 }

@@ -1,14 +1,16 @@
 package com.ada.economizaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -17,51 +19,14 @@ public class Mercado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
-
     @ManyToOne
     @JoinColumn(name = "localizacao_id")
     private Localizacao localizacao;
-
-    @OneToMany(mappedBy = "mercado", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List
-
-            <ProdutoPreco> produtoPrecos = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Localizacao getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(Localizacao localizacao) {
-        this.localizacao = localizacao;
-    }
-
-    public void addProdutoPreco(ProdutoPreco produtoPreco) {
-        produtoPrecos.add(produtoPreco);
-        produtoPreco.setMercado(this);
-    }
-
-    public void removeProdutoPreco(ProdutoPreco produtoPreco) {
-        produtoPrecos.remove(produtoPreco);
-        produtoPreco.setMercado(null);
-    }
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(mappedBy = "mercado")
+    private List<ProdutoPreco> produtoPrecos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -76,16 +41,4 @@ public class Mercado {
         return id != null ? id.hashCode() : 0;
     }
 
-    @Override
-    public String toString() {
-        return "Mercado{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", localizacao=" + localizacao +
-                '}';
-    }
 }
-
-
-
-
