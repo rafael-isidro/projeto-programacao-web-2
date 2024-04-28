@@ -2,12 +2,10 @@ package com.ada.economizaapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -17,6 +15,14 @@ public class Localizacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "coordenadas", nullable = false)
+    @NotBlank
+    private String coordenadas;
+
+    public Localizacao(String coordenadas) {
+        this.coordenadas = coordenadas;
+    }
+  
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 public class LocalizacaoService {
     private final String API_KEY = "5b3ce3597851110001cf624822b8f2ef32ca4aa0906695f5d6a8e19c";
 
-    public Mono<Double> retornarDistanciaKm(Localizacao localizacaoOrigem, Localizacao localizacaoDestino) {
+    public Double retornarDistanciaKm(Localizacao localizacaoOrigem, Localizacao localizacaoDestino) {
 
         return WebClient
                 .create()
@@ -28,7 +28,8 @@ public class LocalizacaoService {
                         .build())
                 .retrieve()
                 .bodyToMono(DistanceResponse.class)
-                .flatMap(this::obterDistancia);
+                .flatMap(this::obterDistancia)
+                .block();
     }
 
 
