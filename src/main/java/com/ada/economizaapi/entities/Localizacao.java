@@ -16,6 +16,7 @@ public class Localizacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String coordenadas;
 
     @Override
     public boolean equals(Object o) {

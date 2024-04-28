@@ -1,8 +1,11 @@
 package com.ada.economizaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -21,6 +24,10 @@ public class Pessoa {
     @JoinColumn(name = "localizacao_id")
     private Localizacao localizacao;
     private Double custoPorDistancia;
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(mappedBy = "pessoa")
+    private List<ListaCompra> listasCompra = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
