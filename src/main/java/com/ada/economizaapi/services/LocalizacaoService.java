@@ -32,7 +32,6 @@ public class LocalizacaoService {
                 .block();
     }
 
-
     private Mono<Double> obterDistancia(DistanceResponse response) {
         if (response != null && response.getFeatures() != null && response.getFeatures().length > 0) {
             Feature feature = response.getFeatures()[0];

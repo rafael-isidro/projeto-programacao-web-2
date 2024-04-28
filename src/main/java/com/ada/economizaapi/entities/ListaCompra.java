@@ -2,33 +2,39 @@ package com.ada.economizaapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Objects;
-import javax.validation.constraints.NotBlank;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Localizacao {
+public class ListaCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String coordenadas;
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "lista_compra_produto",
+            joinColumns = @JoinColumn(name = "lista_compra_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<Produto> produtos = new ArrayList<>();
 
-    @Column(name = "coordenadas", nullable = false)
-    @NotBlank
-    private String coordenadas;
-
-    public Localizacao(String coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-  
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Localizacao that = (Localizacao) o;
+        ListaCompra that = (ListaCompra) o;
         return Objects.equals(id, that.id);
     }
 
