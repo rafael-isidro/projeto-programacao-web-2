@@ -5,7 +5,9 @@ import lombok.*;
 import java.util.Objects;
 import javax.validation.constraints.NotBlank;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -14,8 +16,6 @@ public class Localizacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String coordenadas;
-
     @Column(name = "coordenadas", nullable = false)
     @NotBlank
     private String coordenadas;
