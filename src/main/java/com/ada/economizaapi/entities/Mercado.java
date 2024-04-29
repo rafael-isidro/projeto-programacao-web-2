@@ -40,4 +40,13 @@ public class Mercado {
         return id != null ? id.hashCode() : 0;
     }
 
+    public ProdutoPreco getProdutoPreco(Produto produto) {
+        for (ProdutoPreco produtoPreco : produtoPrecos) {
+            if (produtoPreco.getProduto().equals(produto)) {
+                return produtoPreco;
+            }
+        }
+        return null;
+    }
 }
+
