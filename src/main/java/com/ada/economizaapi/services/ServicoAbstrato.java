@@ -67,9 +67,8 @@ public abstract class ServicoAbstrato<E, ID, R extends JpaRepository<E, ID>> {
         this.repository.delete(entity);
     }
 
-    public Produto deleteById(ID id) {
+    public void deleteById(ID id) {
         this.repository.deleteById(id);
-        return null;
     }
 
 }
