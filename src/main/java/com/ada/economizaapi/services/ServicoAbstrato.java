@@ -1,15 +1,11 @@
 package com.ada.economizaapi.services;
 
+import com.ada.economizaapi.entities.Produto;
 import com.ada.economizaapi.exceptions.EntidadeJaExisteException;
 import com.ada.economizaapi.exceptions.EntidadeNaoExisteException;
-import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -60,12 +56,20 @@ public abstract class ServicoAbstrato<E, ID, R extends JpaRepository<E, ID>> {
         return this.repository.save(entity);
     }
 
+    public E update(ID id, E entity) {
+        if (!this.existsById(id)) {
+            throw new EntidadeNaoExisteException();
+        }
+        return this.repository.save(entity);
+    }
+
     public void delete(E entity) {
         this.repository.delete(entity);
     }
 
-    public void deleteById(ID id) {
+    public Produto deleteById(ID id) {
         this.repository.deleteById(id);
+        return null;
     }
 
 }
