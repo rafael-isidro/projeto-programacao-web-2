@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(PathRequest.toH2Console()).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/postman.com**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/postman.com")).permitAll()
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .build();
