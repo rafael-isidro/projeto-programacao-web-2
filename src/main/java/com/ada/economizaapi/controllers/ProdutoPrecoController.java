@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produto-preco")
-
 public class ProdutoPrecoController {
 
     @Autowired
