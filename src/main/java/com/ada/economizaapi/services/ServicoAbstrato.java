@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static org.springframework.beans.BeanUtils.copyProperties;
+
 public abstract class ServicoAbstrato<E, ID, R extends JpaRepository<E, ID>> {
 
     private final R repository;
@@ -59,7 +61,12 @@ public abstract class ServicoAbstrato<E, ID, R extends JpaRepository<E, ID>> {
         if (!this.existsById(id)) {
             throw new EntidadeNaoExisteException();
         }
-        return this.repository.save(entity);
+        E existingEntity = this.findById(id)
+                .orElseThrow(EntidadeNaoExisteException::new);
+
+        copyProperties(entity, existingEntity, "id");
+
+        return this.repository.save(existingEntity);
     }
 
     public void delete(E entity) {

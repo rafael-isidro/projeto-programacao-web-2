@@ -37,7 +37,7 @@ public class ProdutoController {
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public Produto update(@PathVariable Long id, @RequestBody Produto produto) {
-            return produtoService.update(produto);
+            return produtoService.update(id, produto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
