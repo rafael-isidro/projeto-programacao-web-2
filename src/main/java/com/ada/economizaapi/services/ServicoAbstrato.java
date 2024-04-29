@@ -1,6 +1,5 @@
 package com.ada.economizaapi.services;
 
-import com.ada.economizaapi.entities.Produto;
 import com.ada.economizaapi.exceptions.EntidadeJaExisteException;
 import com.ada.economizaapi.exceptions.EntidadeNaoExisteException;
 import org.springframework.data.domain.Example;
